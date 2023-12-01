@@ -7,8 +7,10 @@ import java.util.Objects;
 @Entity(name = "tbl_pokemon")
 public class Pokemon {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @GeneratedValue(generator = "Pokemon_Sequence", strategy = GenerationType.AUTO)
+//    @SequenceGenerator(allocationSize = 1,sequenceName = "Pokemon_Sequence", name = "Pokemon_Sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id = 0L;
     @Column(length = 100)
     private String pokemonName;
     @Column(length = 100)
