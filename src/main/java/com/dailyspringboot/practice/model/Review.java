@@ -1,8 +1,13 @@
 package com.dailyspringboot.practice.model;
 
-public class Review {
+import jakarta.persistence.*;
 
+@Entity(name = "tbl_review")
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 150)
     private String title;
     private String content;
     private int star;

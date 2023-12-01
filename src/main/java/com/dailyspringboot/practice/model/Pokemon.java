@@ -1,13 +1,17 @@
 package com.dailyspringboot.practice.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Entity
+@Entity(name = "tbl_pokemon")
 public class Pokemon {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 100)
     private String pokemonName;
+    @Column(length = 100)
     private String pokemonType;
 
     public Pokemon(){}
