@@ -1,10 +1,12 @@
 package com.dailyspringboot.practice.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.Objects;
 
 @Entity(name = "tbl_pokemon")
+@Builder
 public class Pokemon {
     @Id
 //    @GeneratedValue(generator = "Pokemon_Sequence", strategy = GenerationType.AUTO)
