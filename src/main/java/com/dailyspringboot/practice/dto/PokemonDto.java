@@ -4,7 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 
+@Builder
 public class PokemonDto {
     @Id
 //    @GeneratedValue(generator = "Pokemon_Sequence", strategy = GenerationType.AUTO)
