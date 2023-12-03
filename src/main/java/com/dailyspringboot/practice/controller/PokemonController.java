@@ -28,13 +28,8 @@ public class PokemonController {
     }
 
     @GetMapping("/pokemon/{id}")
-    public ResponseEntity<Pokemon> getPokemonById(@PathVariable Long id) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("custom-header", "FOUND A POKEMON");
-        return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .headers(httpHeaders)
-                .body(new Pokemon(1L, "Pokemon", "Lightning"));
+    public ResponseEntity<PokemonDto> getPokemonById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.FOUND).body(pokemonService.findPokemonById(id));
     }
 
     @PostMapping("/pokemon/create")

@@ -1,6 +1,7 @@
 package com.dailyspringboot.practice.service.Impl;
 
 import com.dailyspringboot.practice.dto.PokemonDto;
+import com.dailyspringboot.practice.exception.PokemonNotFound;
 import com.dailyspringboot.practice.model.Pokemon;
 import com.dailyspringboot.practice.repository.PokemonRepository;
 import com.dailyspringboot.practice.service.PokemonService;
@@ -38,6 +39,19 @@ public class PokemonServiceImpl implements PokemonService {
     public List<PokemonDto> getAllPokemon() {
         List<Pokemon> listPokemon = pokemonRepository.findAll();
         return listPokemon.stream().map(p -> mapToPokemongDto(p)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PokemonDto findPokemonById(Long id) {
+        if(pokemonRepository.findById(id).isEmpty()){
+            throw new PokemonNotFound("Pokemon with id of " + id + " doesn't exist in the database.");
+        }
+        Pokemon pokemon = pokemonRepository.findById(id).get();
+        return PokemonDto.builder()
+                .id(pokemon.getId())
+                .pokemonType(pokemon.getPokemonType())
+                .pokemonName(pokemon.getPokemonName())
+                .build();
     }
 
     private PokemonDto mapToPokemongDto(Pokemon pokemon) {

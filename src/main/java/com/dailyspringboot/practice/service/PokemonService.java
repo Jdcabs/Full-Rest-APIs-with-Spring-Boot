@@ -8,4 +8,6 @@ public interface PokemonService {
     PokemonDto createPokemon(PokemonDto pokemonDto);
 
     List<PokemonDto> getAllPokemon();
+    PokemonDto findPokemonById(Long id);
+
 }
