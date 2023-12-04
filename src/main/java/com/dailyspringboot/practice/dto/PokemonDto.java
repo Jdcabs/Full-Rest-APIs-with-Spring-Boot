@@ -12,7 +12,7 @@ public class PokemonDto {
 //    @GeneratedValue(generator = "Pokemon_Sequence", strategy = GenerationType.AUTO)
 //    @SequenceGenerator(allocationSize = 1,sequenceName = "Pokemon_Sequence", name = "Pokemon_Sequence")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id = 0L;
+    private Long id;
     @Column(length = 100)
     private String pokemonName;
     @Column(length = 100)

@@ -14,6 +14,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PokemonNotFound.class)
     public ResponseEntity<ErrorObject> handlePokemonNotFoundException(PokemonNotFound ex, WebRequest webRequest) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND.value())
-                .body( new ErrorObject(HttpStatus.NOT_FOUND.value(), ex.getMessage(), new Date()));
+                .body(new ErrorObject(HttpStatus.NOT_FOUND.value(), ex.getMessage(), new Date()));
+    }
+
+    @ExceptionHandler(PokemonNoContent.class)
+    public ResponseEntity<ErrorObject> handlePokemonNotFoundExceptionForDeleteMapping(PokemonNotFound ex, WebRequest webRequest) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT.value())
+                .body(new ErrorObject(HttpStatus.NO_CONTENT.value(), ex.getMessage(), new Date()));
     }
 }
