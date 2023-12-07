@@ -3,7 +3,11 @@ package com.dailyspringboot.practice.service.Impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dailyspringboot.practice.dto.PokemonResponse;
 import com.dailyspringboot.practice.exception.PokemonNoContent;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dailyspringboot.practice.dto.PokemonDto;
@@ -69,6 +73,36 @@ public class PokemonServiceImpl implements PokemonService {
         Pokemon pokemon = pokemonRepository
                 .findById(id).orElseThrow(() -> new PokemonNoContent("No pokemon to delete."));
         pokemonRepository.delete(pokemon);
+    }
+
+    @Override
+    public List<PokemonDto> getAllPokemonInPagination(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Pokemon> pokemons = pokemonRepository.findAll(pageable);
+        List<Pokemon> listOfPokemons = pokemons.getContent();
+        return listOfPokemons.stream().map(p -> mapToPokemongDto(p)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PokemonResponse getPokemonByPokemonResponse(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Pokemon> pokemons = pokemonRepository.findAll(pageable);
+        List<Pokemon> listOfPokemons = pokemons.getContent();
+
+        List<PokemonDto> content = listOfPokemons.stream().map(p -> mapToPokemongDto(p))
+                .collect(Collectors.toList());
+
+        if(pokemons.isLast()) {
+            throw new PokemonNoContent("No More Pokemons");
+        }
+        return  PokemonResponse.builder()
+                .content(content)
+                .pageNumber(pokemons.getNumber())
+                .totalElements(pokemons.getTotalElements())
+                .totalPages(pokemons.getTotalPages())
+                .pageSize(pokemons.getSize())
+                .last(pokemons.isLast())
+                .build();
     }
 
     private PokemonDto mapToPokemongDto(Pokemon pokemon) {
