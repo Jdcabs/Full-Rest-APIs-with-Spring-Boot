@@ -92,9 +92,6 @@ public class PokemonServiceImpl implements PokemonService {
         List<PokemonDto> content = listOfPokemons.stream().map(p -> mapToPokemongDto(p))
                 .collect(Collectors.toList());
 
-        if(pokemons.isLast()) {
-            throw new PokemonNoContent("No More Pokemons");
-        }
         return  PokemonResponse.builder()
                 .content(content)
                 .pageNumber(pokemons.getNumber())
