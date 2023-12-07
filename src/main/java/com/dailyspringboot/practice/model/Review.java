@@ -12,6 +12,10 @@ public class Review {
     private String content;
     private int star;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pokemon_id")
+    private Pokemon pokemons;
+
     public Review(){}
     public Review (Long id, String title, String content, int star) {
         setId(id);

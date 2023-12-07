@@ -3,6 +3,8 @@ package com.dailyspringboot.practice.model;
 import jakarta.persistence.*;
 import lombok.Builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "tbl_pokemon")
@@ -17,6 +19,9 @@ public class Pokemon {
     private String pokemonName;
     @Column(length = 100)
     private String pokemonType;
+
+    @OneToMany(mappedBy = "pokemons", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Review> pokemonReviewRelation = new ArrayList<>();
 
     public Pokemon(){}
 
