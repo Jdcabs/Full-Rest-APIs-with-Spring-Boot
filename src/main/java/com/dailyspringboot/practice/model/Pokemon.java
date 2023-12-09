@@ -23,7 +23,8 @@ public class Pokemon {
     @OneToMany(mappedBy = "pokemons", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Review> pokemonReviewRelation = new ArrayList<>();
 
-    public Pokemon(){}
+    public Pokemon() {
+    }
 
     public Pokemon(Long id, String pokemonName, String pokemonType) {
         setId(id);
@@ -34,9 +35,11 @@ public class Pokemon {
     public void setId(Long id) {
         this.id = id;
     }
+
     public void setPokemonName(String pokemonName) {
         this.pokemonName = pokemonName;
     }
+
     public void setPokemonType(String pokemonType) {
         this.pokemonType = pokemonType;
     }
@@ -44,9 +47,11 @@ public class Pokemon {
     public Long getId() {
         return id;
     }
+
     public String getPokemonName() {
         return pokemonName;
     }
+
     public String getPokemonType() {
         return pokemonType;
     }

@@ -39,7 +39,8 @@ public class PokemonController {
     @GetMapping("/pokemon/response")
     public ResponseEntity<PokemonResponse> getAllPokemonInPokemonResponse(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ) {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(pokemonService.getPokemonByPokemonResponse(pageNo,pageSize));
     }
