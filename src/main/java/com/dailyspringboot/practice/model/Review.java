@@ -1,27 +1,31 @@
 package com.dailyspringboot.practice.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity(name = "tbl_review")
+@Builder
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(length = 150)
     private String title;
     private String content;
-    private int star;
+    private int stars;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokemon_id")
     private Pokemon pokemons;
 
     public Review(){}
-    public Review (Long id, String title, String content, int star) {
-        setId(id);
-        setTitle(title);
-        setContent(content);
-        setStar(star);
+
+    public Review(Long id, String title, String content, int stars, Pokemon pokemons) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.stars = stars;
+        this.pokemons = pokemons;
     }
 
     public Long getId() {
@@ -37,7 +41,15 @@ public class Review {
     }
 
     public int getStar() {
-        return star;
+        return stars;
+    }
+
+    public Pokemon getPokemons() {
+        return pokemons;
+    }
+
+    public void setPokemons(Pokemon pokemons) {
+        this.pokemons = pokemons;
     }
 
     public void setId(Long id) {
@@ -52,7 +64,7 @@ public class Review {
         this.content = content;
     }
 
-    public void setStar(int star) {
-        this.star = star;
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 }
