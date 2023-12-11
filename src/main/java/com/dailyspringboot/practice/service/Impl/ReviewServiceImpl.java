@@ -9,7 +9,9 @@ import com.dailyspringboot.practice.repository.ReviewRepository;
 import com.dailyspringboot.practice.service.ReviewService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -33,6 +35,13 @@ public class ReviewServiceImpl implements ReviewService {
         Review saveReview = reviewRepository.save(review);
 
         return mapToReviewDto(saveReview);
+    }
+
+    @Override
+    public List<ReviewDto> findReviewByPokemonId(Long id) {
+        List<Review> listOfReviews = reviewRepository.findByPokemonsId(id);
+
+        return listOfReviews.stream().map(list -> mapToReviewDto(list)).collect(Collectors.toList());
     }
 
     private ReviewDto mapToReviewDto(Review review) {
