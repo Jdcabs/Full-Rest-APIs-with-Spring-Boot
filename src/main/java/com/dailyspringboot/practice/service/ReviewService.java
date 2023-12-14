@@ -7,5 +7,7 @@ import java.util.List;
 public interface ReviewService {
     ReviewDto createReview(Long id, ReviewDto reviewDto);
 
-    List<ReviewDto> findReviewByPokemonId(Long id);
+    List<ReviewDto> findAllReviewByPokemonId(Long id);
+
+    ReviewDto findReviewByPokemonId(Long pokemonId, Long reviewId);
 }

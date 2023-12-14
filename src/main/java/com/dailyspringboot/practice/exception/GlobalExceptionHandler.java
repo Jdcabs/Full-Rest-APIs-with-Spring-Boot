@@ -22,4 +22,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NO_CONTENT.value())
                 .body(new ErrorObject(HttpStatus.NO_CONTENT.value(), ex.getMessage(), new Date()));
     }
+    @ExceptionHandler(ReviewNotFound.class)
+    public ResponseEntity<ErrorObject> handleReviewNotFoundExceptionForDeleteMapping(ReviewNotFound ex, WebRequest webRequest) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT.value())
+                .body(new ErrorObject(HttpStatus.NO_CONTENT.value(), ex.getMessage(), new Date()));
+    }
 }

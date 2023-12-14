@@ -2,6 +2,7 @@ package com.dailyspringboot.practice.service.Impl;
 
 import com.dailyspringboot.practice.dto.ReviewDto;
 import com.dailyspringboot.practice.exception.PokemonNotFound;
+import com.dailyspringboot.practice.exception.ReviewNotFound;
 import com.dailyspringboot.practice.model.Pokemon;
 import com.dailyspringboot.practice.model.Review;
 import com.dailyspringboot.practice.repository.PokemonRepository;
@@ -38,10 +39,25 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewDto> findReviewByPokemonId(Long id) {
+    public List<ReviewDto> findAllReviewByPokemonId(Long id) {
         List<Review> listOfReviews = reviewRepository.findByPokemonsId(id);
 
         return listOfReviews.stream().map(list -> mapToReviewDto(list)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ReviewDto findReviewByPokemonId(Long pokemonId, Long reviewId) {
+        Pokemon pokemon = pokemonRepository.findById(pokemonId)
+                .orElseThrow(() -> new PokemonNotFound("Pokemon not found"));
+
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFound("Review not found"));
+
+        if(!pokemon.getId().equals(review.getId())) {
+            throw new ReviewNotFound("Review with pokemon id doesn't exist");
+        }
+
+        return mapToReviewDto(review);
     }
 
     private ReviewDto mapToReviewDto(Review review) {

@@ -1,7 +1,6 @@
 package com.dailyspringboot.practice.controller;
 
 import com.dailyspringboot.practice.dto.ReviewDto;
-import com.dailyspringboot.practice.model.Review;
 import com.dailyspringboot.practice.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +25,14 @@ public class ReviewController {
 
     @GetMapping("/review/{id}/pokemon")
     public ResponseEntity<List<ReviewDto>> getAllReviewsByPokemonId(@PathVariable("id") Long pokemonId) {
-        return ResponseEntity.status(HttpStatus.OK).body(reviewService.findReviewByPokemonId(pokemonId));
+        return ResponseEntity.status(HttpStatus.OK).body(reviewService.findAllReviewByPokemonId(pokemonId));
+    }
+
+    @GetMapping("/pokemon/{pokemonId}/review/{reviewId}")
+    public ResponseEntity<ReviewDto> getReviewByPokemonId(
+            @PathVariable(name = "pokemonId") Long pokemonId,
+            @PathVariable(name = "reviewId") Long reviewId)
+    {
+        return ResponseEntity.status(HttpStatus.FOUND).body(reviewService.findReviewByPokemonId(pokemonId, reviewId));
     }
 }
