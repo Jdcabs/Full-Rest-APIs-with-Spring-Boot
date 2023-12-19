@@ -85,8 +85,11 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public PokemonResponse getPokemonByPokemonResponse(int page, int pageSize) {
+
         Pageable pageable = PageRequest.of(page, pageSize);
+
         Page<Pokemon> pokemons = pokemonRepository.findAll(pageable);
+
         List<Pokemon> listOfPokemons = pokemons.getContent();
 
         List<PokemonDto> content = listOfPokemons.stream().map(p -> mapToPokemongDto(p))
