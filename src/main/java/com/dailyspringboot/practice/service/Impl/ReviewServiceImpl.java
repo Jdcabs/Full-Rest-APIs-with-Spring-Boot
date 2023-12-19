@@ -71,6 +71,14 @@ public class ReviewServiceImpl implements ReviewService {
         if(!pokemon.getId().equals(review.getId())) {
             throw new ReviewNotFound("Review with pokemon id doesn't exist");
         }
+
+        review.setTitle(reviewDto.getTitle());
+        review.setContent(reviewDto.getContent());
+        review.setStars(reviewDto.getStars());
+
+        Review updatedReview = reviewRepository.save(review);
+
+        return mapToReviewDto(review);
     }
 
     private ReviewDto mapToReviewDto(Review review) {
