@@ -35,4 +35,14 @@ public class ReviewController {
     {
         return ResponseEntity.status(HttpStatus.FOUND).body(reviewService.findReviewByPokemonId(pokemonId, reviewId));
     }
+
+    @PostMapping("/pokemon/{pokemonId}/review/{reviewId}/updated")
+    public ResponseEntity<ReviewDto> updateExistingReview(
+            @PathVariable(name = "pokemonId") Long pokemonId,
+            @PathVariable(name = "reviewId") Long reviewId,
+            @RequestBody ReviewDto reviewDto)
+    {
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(reviewService.updateReview(pokemonId,reviewId,reviewDto));
+    }
 }
