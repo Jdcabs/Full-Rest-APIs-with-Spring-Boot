@@ -11,4 +11,6 @@ public interface ReviewService {
 
     ReviewDto findReviewByPokemonId(Long pokemonId, Long reviewId);
     ReviewDto updateReview(Long pokemonId, Long reviewId, ReviewDto reviewDto);
+
+    String deleteReviewById(Long pokemonId, Long reviewId);
 }
